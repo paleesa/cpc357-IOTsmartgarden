@@ -40,6 +40,7 @@ The system is aligned with smart city concepts and SDG 11 (Sustainable Cities an
 	  ```env
 	  NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
 	  NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+      NEXT_PUBLIC_WEATHER_API_KEY=your-weather-api-key
 	  ```
 
 3. **Run the development server:**
