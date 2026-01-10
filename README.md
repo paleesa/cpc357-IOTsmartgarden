@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+## 🌱 Smart Garden Dashboard
 
-First, run the development server:
+An IoT-enabled smart irrigation and monitoring system designed to support sustainable urban gardening.
+This project combines real-time sensor monitoring, automated irrigation control, and a modern web interface using Next.js, Supabase, and MQTT.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+The system is aligned with smart city concepts and SDG 11 (Sustainable Cities and Communities) by promoting efficient water usage and intelligent environmental management.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✨ Key Features
 
-## Learn More
+- **Live Dashboard:** Visualize temperature, humidity, soil moisture, and weather data from IoT sensors.
+- **Manual & Auto Control:** Switch between automatic and manual pump control for irrigation.
+- **Calibration:** Adjust sensor thresholds and calibration settings for optimal plant care.
+- **Realtime Updates:** Data is fetched live from Supabase and device commands are sent via MQTT.
+- **Modern UI:** Responsive, sidebar-driven layout with Lucide icons and Recharts for data visualization.
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠 Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Next.js 16](https://nextjs.org/) (App Router)
+- [React 19](https://react.dev/)
+- [Supabase](https://supabase.com/) (PostgreSQL backend)
+- [MQTT.js](https://github.com/mqttjs/MQTT.js) (IoT messaging)
+- [Recharts](https://recharts.org/) (Charts)
+- [Tailwind CSS](https://tailwindcss.com/) (Styling)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🚀 Getting Started
 
-## Deploy on Vercel
+1. **Install dependencies:**
+	```bash
+	npm install
+	# or
+	yarn install
+	```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. **Set up environment variables:**
+	- Create a `.env.local` file in the root directory.
+	- Add your Supabase project URL and anon key:
+	  ```env
+	  NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+	  NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+	  ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. **Run the development server:**
+	```bash
+	npm run dev
+	# or
+	yarn dev
+	```
+	Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Project Structure
+
+app/
+ ├─ dashboard/        # Live monitoring dashboard
+ ├─ calibration/      # Sensor calibration interface
+ ├─ manual-control/   # Manual pump override
+ ├─ api/pump/         # MQTT backend bridge
+ └─ layout.jsx        # App layout & sidebar
+
+components/
+ └─ Sidebar.jsx       # Sidebar navigation
+
+lib/
+ └─ supabase.js       # Supabase client setup
+
+## Key Pages
+
+- **Dashboard:** `/dashboard` — Live sensor data and charts
+- **Calibration:** `/calibration` — Adjust sensor thresholds
+- **Manual Control:** `/manual-control` — Directly control irrigation pump
+
+## API & IoT Integration
+
+- **Supabase:** Stores and retrieves sensor data
+- **MQTT:** Sends pump control commands to ESP32/IoT device via `/api/pump`
+
+## ⚙ Customization
+
+- Update MQTT broker address in `app/api/pump/route.js` if needed.
+- Adjust Supabase table/column names in `lib/supabase.js` and dashboard code as per your schema.
+
+## 📜 License
+
+MIT — see [LICENSE](LICENSE) for details.
