@@ -16,14 +16,29 @@ The system is aligned with smart city concepts and SDG 11 (Sustainable Cities an
 - **Realtime Updates:** Data is fetched live from Supabase and device commands are sent via MQTT.
 - **Modern UI:** Responsive, sidebar-driven layout with Lucide icons and Recharts for data visualization.
 
-## 🛠 Tech Stack
 
-- [Next.js 16](https://nextjs.org/) (App Router)
-- [React 19](https://react.dev/)
-- [Supabase](https://supabase.com/) (PostgreSQL backend)
-- [MQTT.js](https://github.com/mqttjs/MQTT.js) (IoT messaging)
-- [Recharts](https://recharts.org/) (Charts)
-- [Tailwind CSS](https://tailwindcss.com/) (Styling)
+## Dependencies
+
+The project uses the following runtime and development dependencies (as listed in `package.json`):
+
+- Runtime dependencies:
+	- `@supabase/supabase-js` ^2.89.0
+	- `lucide-react` ^0.562.0
+	- `mqtt` ^5.14.1
+	- `next` 16.1.0
+	- `react` 19.2.3
+	- `react-dom` 19.2.3
+	- `recharts` ^3.6.0
+
+- Dev dependencies:
+	- `@tailwindcss/postcss` ^4
+	- `@types/node` ^20
+	- `@types/react` ^19
+	- `@types/react-dom` ^19
+	- `eslint` ^9
+	- `eslint-config-next` 16.1.0
+	- `tailwindcss` ^4
+	- `typescript` ^5
 
 ## 🚀 Getting Started
 
@@ -51,6 +66,12 @@ The system is aligned with smart city concepts and SDG 11 (Sustainable Cities an
 	```
 	Open [http://localhost:3000](http://localhost:3000) in your browser.
 
+	### Build for production
+
+	```bash
+	npm run build
+	npm start
+	```
 ## Project Structure
 - `app/` — Main Next.js app directory (pages, API routes)
 - `components/Sidebar.jsx` — Sidebar navigation
@@ -72,6 +93,58 @@ The system is aligned with smart city concepts and SDG 11 (Sustainable Cities an
 
 - Update MQTT broker address in `app/api/pump/route.js` if needed.
 - Adjust Supabase table/column names in `lib/supabase.js` and dashboard code as per your schema.
+
+
+### ESP32 / Arduino (Cpc357_project.ino) 
+
+This project expects sensor data and pump commands to be exchanged over MQTT. Below is a minimal ESP32 sketch (Arduino framework) that:
+
+- connects to Wi‑Fi
+- publishes sensor readings to a topic like `myhome/garden/data`
+- subscribes to `myhome/garden/command` for pump ON/OFF commands
+
+Replace `WIFI_SSID`, `WIFI_PASS`, and `MQTT_BROKER` with your values before uploading.
+
+
+Notes:
+- Use the `PubSubClient` library in the Arduino IDE or PlatformIO.
+- Wire the soil moisture, DHT, and relay modules according to your ESP32 board pinout.
+- Secure your MQTT broker in production (authentication/TLS).
+
+## GCP VM — MQTT broker (Mosquitto) setup
+
+You can host an MQTT broker on a GCP Compute Engine VM. The steps below outline creating an Ubuntu VM, installing Mosquitto, and exposing port `1883`.
+
+1. Create a new Compute Engine VM (Ubuntu 22.04) and assign an external IP.
+2. Allow ingress on TCP port `1883` in the VM's firewall (VPC → Firewall rules).
+3. SSH into the VM and run:
+
+```bash
+sudo apt update
+sudo apt install -y mosquitto mosquitto-clients
+sudo systemctl enable --now mosquitto
+```
+
+4. (Optional) Configure authentication by editing `/etc/mosquitto/mosquitto.conf` and adding a password file:
+
+```bash
+sudo mosquitto_passwd -c /etc/mosquitto/passwd username
+# then add to mosquitto.conf:
+# allow_anonymous false
+# password_file /etc/mosquitto/passwd
+sudo systemctl restart mosquitto
+```
+
+5. Update your app to point to the VM's external IP in `app/api/pump/route.js` (replace the `MQTT_BROKER` constant) or set an env variable and use it in your code.
+
+Example `MQTT_BROKER` value:
+
+```
+mqtt://YOUR_VM_EXTERNAL_IP:1883
+```
+
+
+
 
 ## 📜 License
 
