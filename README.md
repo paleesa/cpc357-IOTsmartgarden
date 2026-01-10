@@ -51,19 +51,10 @@ The system is aligned with smart city concepts and SDG 11 (Sustainable Cities an
 	Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Project Structure
-
-app/
- ├─ dashboard/        # Live monitoring dashboard
- ├─ calibration/      # Sensor calibration interface
- ├─ manual-control/   # Manual pump override
- ├─ api/pump/         # MQTT backend bridge
- └─ layout.jsx        # App layout & sidebar
-
-components/
- └─ Sidebar.jsx       # Sidebar navigation
-
-lib/
- └─ supabase.js       # Supabase client setup
+- `app/` — Main Next.js app directory (pages, API routes)
+- `components/Sidebar.jsx` — Sidebar navigation
+- `lib/supabase.js` — Supabase client setup
+- `public/` — Static assets
 
 ## Key Pages
 
