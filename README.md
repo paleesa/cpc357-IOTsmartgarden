@@ -95,7 +95,7 @@ The project uses the following runtime and development dependencies (as listed i
 - Adjust Supabase table/column names in `lib/supabase.js` and dashboard code as per your schema.
 
 
-### ESP32 / Arduino (Cpc357_project.ino) 
+## ESP32 / Arduino (Cpc357_project.ino) 
 
 This project expects sensor data and pump commands to be exchanged over MQTT. Below is a minimal ESP32 sketch (Arduino framework) that:
 
@@ -146,6 +146,4 @@ mqtt://YOUR_VM_EXTERNAL_IP:1883
 
 
 
-## 📜 License
 
-MIT — see [LICENSE](LICENSE) for details.
