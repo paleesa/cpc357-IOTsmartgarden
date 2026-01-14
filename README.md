@@ -17,6 +17,33 @@ The system is aligned with smart city concepts and SDG 11 (Sustainable Cities an
 - **Realtime Updates:** Data is fetched live from Supabase and device commands are sent via MQTT.
 - **Modern UI:** Responsive, sidebar-driven layout with Lucide icons and Recharts for data visualization.
 
+## 🏗️ System Architecture
+
+The **Solar-Powered IoT Smart Garden** utilizes a modular **Four-Tier IoT Architecture** designed for scalability, reliability, and real-time performance. The system ensures a clear separation of concerns, decoupling the hardware sensing layer from the cloud processing and user visualization layers.
+
+![System Architecture Diagram](public/architecture.png)
+
+### 1. Perception & Edge Layer (Hardware)
+* **Core Component:** ESP32 Microcontroller acting as the edge node.
+* **Function:** Handles direct interaction with the physical environment. It collects raw data from sensors (Soil Moisture, Rain, DHT22, Water Level) and controls the Water Pump actuator via a Relay.
+* **Edge Logic:** Performs local "Sense-Think-Act" processing to make immediate irrigation decisions based on sensor thresholds.
+
+### 2. Network & Transport Layer (Communication)
+* **Protocol:** **MQTT (Message Queuing Telemetry Transport)** over **TCP/IP**.
+* **Gateway:** The ESP32 utilizes WiFi to transmit telemetry data payloads to the cloud.
+* **Why MQTT?** Selected for its lightweight nature and low bandwidth consumption, ensuring reliable delivery even in constrained network environments.
+
+### 3. Middleware & Processing Layer (Cloud Backend)
+Hosted on a **Google Cloud Platform (GCP) Virtual Machine**, this layer serves as the system's "brain":
+* **Mosquitto Broker:** Manages message routing between the edge devices and the server.
+* **Python Subscriber Service:** A middleware script that acts as a bridge; it validates incoming sensor data and performs necessary transformations.
+* **Supabase (Database):** A PostgreSQL-based database used for the persistent storage of environmental history and logs.
+
+### 4. Application Layer (User Interface)
+* **Frontend:** A modern web dashboard built with **Next.js**.
+* **Real-Time Visualization:** Uses **Secure WebSockets (WSS)** to display live sensor updates with minimal latency.
+* **Historical Analysis:** Uses **HTTPS (REST API)** to fetch and render historical data trends for user analysis.
+
 
 ## Dependencies
 
