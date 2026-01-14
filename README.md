@@ -6,7 +6,7 @@ This project combines real-time sensor monitoring, automated irrigation control,
 
 The system is aligned with smart city concepts and SDG 11 (Sustainable Cities and Communities) by promoting efficient water usage and intelligent environmental management.
 
-![Alt text for the image](public\pokok.png)
+![Alt text for the image](public/pokok.png)
 
 
 ## ✨ Key Features
